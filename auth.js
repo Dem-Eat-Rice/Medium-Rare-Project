@@ -1,6 +1,8 @@
-
-const { User } = require('./db/models');
-
+const db = require('./db/models');
 
 
-module.exports = {};
+const loginUser = (req, res, user) => {
+    req.session.auth = { userId: user.id }
+}
+
+module.exports = { loginUser };
