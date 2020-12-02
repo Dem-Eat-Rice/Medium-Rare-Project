@@ -31,7 +31,8 @@ const validateSignUpForm = [
         }
       })
         .then((user) => {
-          return Promise.reject('The provided email is already in use by another account')
+          if (user) throw new Error('The provided email is already in use by another account')
+          // return Promise.reject('The provided email is already in use by another account')
         })
     }),
   check("password")
