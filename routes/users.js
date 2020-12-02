@@ -4,6 +4,23 @@ const { asyncHandler, csrfProtection, validationResult, check } = require('../ut
 const db = require('../db/models');
 const bcrypt = require('bcryptjs');
 
+const validateLoginForm = [
+  check("username")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a username")
+    .isLength({ max: 15 })
+    .withMessage("Username cannot be longer than 15 characters"),
+  check("password")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a password")
+    .custom((value) => {
+      return db.User.findOne({
+        where: {
+          username: value
+        }
+    })
+]
+
 const validateSignUpForm = [
   check("username")
     .exists({ checkFalsy: true })
@@ -85,9 +102,14 @@ router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (
       email,
       hashedPassword 
     })
-
+    
     res.redirect("/");
   }
+  
+}));
+
+router.get("/login", csrfProtection, asyncHandler(async (req, res) => {
+  res.render("login", { csrfToken: req.csrfToken() });
 }));
 
 module.exports = router;
