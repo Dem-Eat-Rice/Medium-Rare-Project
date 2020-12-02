@@ -40,31 +40,33 @@ const validateSignUpForm = [
   check("confirmPassword")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a password")
-    .custom((value, req) => {
-
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Please make sure passwords match.")
+      }
+      return true;
     })
+];
 
-
-]
-
-router.get("/", csrfProtection, asyncHandler(async (req, res) => {
+router.get("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
   res.render("sign-up", { csrfToken: req.csrfToken() });
 }));
 
-router.post("/", validateSignUpForm, csrfProtection, asyncHandler(async (req, res) => {
+router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (req, res) => {
   const { username, firstName, lastName, email, password } = req.body;
+  console.log(username);
   const validationErrors = validationResult(req);
-  if (validationErrors) {
+  if (!validationErrors.isEmpty()) {
     const errors = validationErrors.array().map((error) => error.msg);
     const err = Error("Bad Request");
     err.status = 400;
     err.title = "Bad Request";
     err.errors = errors;
-    return res.status(400).render('sign-up');
+    return res.status(400).render('sign-up', { errors });
+  } else {
+
+    res.redirect("/");
   }
-
-  res.redirect('/users');
-
 }));
 
 module.exports = router;

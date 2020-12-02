@@ -2,7 +2,7 @@ extends layout.pug
 
 block content
     h3 Sign Up
-    form(action="/sign-up", method="post")
+    form(action="/users/sign-up", method="post")
         input(type="hidden" name="_csrf" value=csrfToken)
         br
         label Username
