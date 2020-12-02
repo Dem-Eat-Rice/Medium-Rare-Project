@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const { asyncHandler, csrfProtection, validationResult, check } = require('../utils');
 const db = require('../db/models');
+const { loginUser } = require('../auth');
 
 
 async function isPassword(password, hashedPass) {
@@ -112,6 +113,7 @@ router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (
       email,
       hashedPassword
     })
+    loginUser(req, res, newUser);
     res.redirect("/");
   }
 }));
@@ -129,6 +131,7 @@ router.post("/login", validateLoginForm, csrfProtection, asyncHandler(async (req
   } else {
     const user = await db.User.findOne({ where: { username } })
     if (user && await isPassword(password, user.hashedPassword.toString())) {
+      loginUser(req, res, user);
       console.log('pass is correct');
       res.redirect('/');
     } else {
