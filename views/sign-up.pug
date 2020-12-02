@@ -1,8 +1,28 @@
 extends layout.pug
 
 block content
-    h3 Test
+    h3 Sign Up
     form(action="/sign-up", method="post")
         input(type="hidden" name="_csrf" value=csrfToken)
+        br
+        label Username
+        input(type="text" name="username")
+        br
+        label First Name
+        input(type="text" name="firstName")
+        br
+        label Last Name
+        input(type="text" name="lastName")
+        br
+        label Email
+        input(type="email" name="email")
+        br
+        label Password
+        input(type="password" name="password")
+        br
+        label Confirm Password
+        input(type="password" name="confirmPassword")
+        br
+        button(type="submit") Submit
             
         
