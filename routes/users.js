@@ -8,7 +8,7 @@ const db = require('../db/models');
 async function isPassword(password, hashedPass) {
   const isPassword = await bcrypt.compare(password, hashedPass);
   return isPassword;
-}
+};
 
 const validateLoginForm = [
   check("username")
@@ -76,7 +76,17 @@ const validateSignUpForm = [
     })
 ];
 
-
+const validate = (validationErrors, res, req, moreErrors) => {
+  const errors = validationErrors.array().map((error) => error.msg);
+  const err = Error("Bad Request");
+  err.status = 400;
+  err.title = "Bad Request";
+  err.errors = errors;
+  if (moreErrors) {
+    errors.push(moreErrors);
+  }
+  return res.status(400).render('login', { errors, csrfToken: req.csrfToken() });
+};
 
 router.get("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
   res.render("sign-up", { csrfToken: req.csrfToken() });
@@ -102,16 +112,12 @@ router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (
       email,
       hashedPassword
     })
-
     res.redirect("/");
   }
-
 }));
 
 router.get("/login", csrfProtection, asyncHandler(async (req, res) => {
-
   res.render("login", { csrfToken: req.csrfToken() });
-
 }));
 
 router.post("/login", validateLoginForm, csrfProtection, asyncHandler(async (req, res) => {
@@ -119,25 +125,16 @@ router.post("/login", validateLoginForm, csrfProtection, asyncHandler(async (req
   const validationErrors = validationResult(req);
 
   if (!validationErrors.isEmpty()) {
-
-    const errors = validationErrors.array().map((error) => error.msg);
-    const err = Error("Bad Request");
-    err.status = 400;
-    err.title = "Bad Request";
-    err.errors = errors;
-    return res.status(400).render('login', { errors, csrfToken: req.csrfToken() });
-
+    validate(validationErrors, res, req);
   } else {
     const user = await db.User.findOne({ where: { username } })
-    if (user) {
-      if (await isPassword(password, user.hashedPassword.toString())) {
-        console.log('pass is correct');
-      } else {
-        console.log('pass is incorrect');
-      }
+    if (user && await isPassword(password, user.hashedPassword.toString())) {
+      console.log('pass is correct');
+      res.redirect('/');
+    } else {
+      validate(validationErrors, res, req, 'Please re-enter your credentials');
     }
   }
-
 }));
 
 module.exports = router;
