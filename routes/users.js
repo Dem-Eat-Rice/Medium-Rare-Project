@@ -6,29 +6,24 @@ const db = require('../db/models');
 const validateSignUpForm = [
   check("username")
     .exists({ checkFalsy: true })
-    .withMessage("Please provide a username"),
-  check("username")
+    .withMessage("Please provide a username")
     .isLength({ max: 15 })
     .withMessage("Username cannot be longer than 15 characters"),
   check("firstName")
     .exists({ checkFalsy: true })
-    .withMessage("Please provide a first name"),
-  check("firstName")
+    .withMessage("Please provide a first name")
     .isLength({ max: 30 })
     .withMessage("First name cannot be longer than 30 characters"),
   check("lastName")
     .exists({ checkFalsy: true })
-    .withMessage("Please provide a last name"),
-  check("lastName")
+    .withMessage("Please provide a last name")
     .isLength({ max: 30 })
     .withMessage("Last name cannot be longer than 30 characters"),
   check("email")
     .exists({ checkFalsy: true })
-    .withMessage("Please provide an email"),
-  check("email")
+    .withMessage("Please provide an email")
     .isEmail()
-    .withMessage("Please provide a valid email"),
-  check("email")
+    .withMessage("Please provide a valid email")
     .custom((value) => {
       return db.User.findOne({
         where: {
@@ -45,12 +40,13 @@ const validateSignUpForm = [
   check("confirmPassword")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a password")
-  // .custom((value, req) => {
-
-  // })
-
-
-]
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Please make sure passwords match.")
+      }
+      return true;
+    })
+];
 
 router.get("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
   res.render("sign-up", { csrfToken: req.csrfToken() });
@@ -66,11 +62,11 @@ router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (
     err.status = 400;
     err.title = "Bad Request";
     err.errors = errors;
-    return res.status(400).render('sign-up');
-  }
+    return res.status(400).render('sign-up', { errors });
+  } else {
 
-  // res.redirect('/users/sign-up');
-  res.redirect("/");
+    res.redirect("/");
+  }
 }));
 
 module.exports = router;
