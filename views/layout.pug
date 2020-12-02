@@ -2,7 +2,14 @@ doctype html
 html
   head
       block head
-        title="Express Starter App"
+        title="Medium Rare"
         link(rel='stylesheet' href='/stylesheets/reset.css')
   body
+    nav.navbar.navbar-lg.navbar-light.bg-light
+      a.navbar-brand(href="/") Home
+      .navbar-nav
+        a.nav-item.nav-link(href="/users/sign-up") Sign Up
+      .navbar-nav
+        a.nav-item.nav-link(href="/users/login") Log In
     block content
+

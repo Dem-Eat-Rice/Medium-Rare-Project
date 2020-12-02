@@ -1,0 +1,10 @@
+extends layout.pug
+
+block content 
+    h2 Recent Posts
+    div(class="posts-container")
+    each post in allPosts
+        p= post.title
+        p= post.body
+
+
