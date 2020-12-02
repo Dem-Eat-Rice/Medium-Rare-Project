@@ -5,11 +5,17 @@ html
         title="Medium Rare"
         link(rel='stylesheet' href='/stylesheets/reset.css')
   body
+    div.header
     nav.navbar.navbar-lg.navbar-light.bg-light
       a.navbar-brand(href="/") Home
       .navbar-nav
         a.nav-item.nav-link(href="/users/sign-up") Sign Up
       .navbar-nav
         a.nav-item.nav-link(href="/users/login") Log In
+    hr
+    div.splash 
+      h2 Where Good Steak Ideas Find You...
+      p Read and Share Perspectives on Steak... 
+    hr
     block content
 
