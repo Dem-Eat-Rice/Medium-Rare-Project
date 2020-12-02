@@ -2,13 +2,42 @@ const express = require("express");
 const router = express.Router();
 const { asyncHandler, csrfProtection, validationResult, check } = require('../utils');
 const db = require('../db/models');
+const bcrypt = require('bcryptjs');
+
+const validateLoginForm = [
+  check("username")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a username")
+    .isLength({ max: 15 })
+    .withMessage("Username cannot be longer than 15 characters"),
+  check("password")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a password")
+    .custom((value) => {
+      return db.User.findOne({
+        where: {
+          username: value
+        }
+    })
+]
 
 const validateSignUpForm = [
   check("username")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a username")
     .isLength({ max: 15 })
-    .withMessage("Username cannot be longer than 15 characters"),
+    .withMessage("Username cannot be longer than 15 characters")
+    .custom((value) => {
+      return db.User.findOne({
+        where: {
+          username: value
+        }
+      })
+        .then((user) => {
+          if (user) throw new Error('The provided username is already in use by another account')
+          // return Promise.reject('The provided email is already in use by another account')
+        })
+    }),
   check("firstName")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a first name")
@@ -31,7 +60,8 @@ const validateSignUpForm = [
         }
       })
         .then((user) => {
-          return Promise.reject('The provided email is already in use by another account')
+          if (user) throw new Error('The provided email is already in use by another account')
+          // return Promise.reject('The provided email is already in use by another account')
         })
     }),
   check("password")
@@ -62,11 +92,24 @@ router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (
     err.status = 400;
     err.title = "Bad Request";
     err.errors = errors;
-    return res.status(400).render('sign-up', { errors });
+    return res.status(400).render('sign-up', { errors, csrfToken: req.csrfToken() });
   } else {
-
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = db.User.create({
+      username,
+      firstName,
+      lastName,
+      email,
+      hashedPassword 
+    })
+    
     res.redirect("/");
   }
+  
+}));
+
+router.get("/login", csrfProtection, asyncHandler(async (req, res) => {
+  res.render("login", { csrfToken: req.csrfToken() });
 }));
 
 module.exports = router;
