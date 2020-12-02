@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     Post.belongsTo(models.User, { foreignKey: "authorId" });
     Post.hasMany(models.Like, { foreignKey: "postId" });
     Post.hasMany(models.TagPost, {foreignKey: "postId"});
+    Post.hasMany(models.Comment, { foreignKey: "postId"});
   };
   return Post;
 };
