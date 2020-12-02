@@ -1,17 +1,22 @@
 extends layout.pug
 
 include utils.pug
-
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  //- add page specific js
+  script(src="/javascripts/index.js" type="module" defer)
 block content
-    h3 Login
+    h1 Login
+    br
     +validationErrorSummary(errors)
-    form(action="/users/login", method="post")
+    form(action="/users/login" method="post" id='loginForm')
         input(type="hidden" name="_csrf" value=csrfToken)
-        br
+        div#loginInput
         label Username
         input(type="text" name="username")
-        br
+        div#loginInput
         label Password
         input(type="password" name="password")
-        br
+        div#loginInput
         button(type="submit") Submit
