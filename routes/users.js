@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { asyncHandler, csrfProtection, validationResult, check } = require('../utils');
 const db = require('../db/models');
+const bcrypt = require('bcryptjs');
 
 const validateSignUpForm = [
   check("username")
@@ -63,8 +64,16 @@ router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (
     err.status = 400;
     err.title = "Bad Request";
     err.errors = errors;
-    return res.status(400).render('sign-up', { errors });
+    return res.status(400).render('sign-up', { errors, csrfToken: req.csrfToken() });
   } else {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = db.User.create({
+      username,
+      firstName,
+      lastName,
+      email,
+      hashedPassword 
+    })
 
     res.redirect("/");
   }
