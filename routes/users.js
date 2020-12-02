@@ -3,7 +3,6 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const { asyncHandler, csrfProtection, validationResult, check } = require('../utils');
 const db = require('../db/models');
-const { getUserToken } = require('../auth');
 
 
 async function isPassword(password, hashedPass) {
