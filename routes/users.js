@@ -4,6 +4,11 @@ const { asyncHandler, csrfProtection, validationResult, check } = require('../ut
 const db = require('../db/models');
 const bcrypt = require('bcryptjs');
 
+async function isPassword(password, hashedPass) {
+  const isPassword = await bcrypt.compare(password, hashedPass);
+  return isPassword;
+}
+
 const validateLoginForm = [
   check("username")
     .exists({ checkFalsy: true })
@@ -13,13 +18,7 @@ const validateLoginForm = [
   check("password")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a password")
-    .custom((value) => {
-      return db.User.findOne({
-        where: {
-          username: value
-        }
-    })
-]
+];
 
 const validateSignUpForm = [
   check("username")
@@ -35,7 +34,6 @@ const validateSignUpForm = [
       })
         .then((user) => {
           if (user) throw new Error('The provided username is already in use by another account')
-          // return Promise.reject('The provided email is already in use by another account')
         })
     }),
   check("firstName")
@@ -61,7 +59,6 @@ const validateSignUpForm = [
       })
         .then((user) => {
           if (user) throw new Error('The provided email is already in use by another account')
-          // return Promise.reject('The provided email is already in use by another account')
         })
     }),
   check("password")
@@ -77,6 +74,8 @@ const validateSignUpForm = [
       return true;
     })
 ];
+
+
 
 router.get("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
   res.render("sign-up", { csrfToken: req.csrfToken() });
@@ -100,16 +99,44 @@ router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (
       firstName,
       lastName,
       email,
-      hashedPassword 
+      hashedPassword
     })
-    
+
     res.redirect("/");
   }
-  
+
 }));
 
 router.get("/login", csrfProtection, asyncHandler(async (req, res) => {
+
   res.render("login", { csrfToken: req.csrfToken() });
+
+}));
+
+router.post("/login", validateLoginForm, csrfProtection, asyncHandler(async (req, res) => {
+  const { username, password } = req.body;
+  const validationErrors = validationResult(req);
+
+  if (!validationErrors.isEmpty()) {
+
+    const errors = validationErrors.array().map((error) => error.msg);
+    const err = Error("Bad Request");
+    err.status = 400;
+    err.title = "Bad Request";
+    err.errors = errors;
+    return res.status(400).render('login', { errors, csrfToken: req.csrfToken() });
+
+  } else {
+    const user = await db.User.findOne({ where: { username } })
+    if (user) {
+      if (await isPassword(password, user.hashedPassword.toString())) {
+        console.log('pass is correct');
+      } else {
+        console.log('pass is incorrect');
+      }
+    }
+  }
+
 }));
 
 module.exports = router;

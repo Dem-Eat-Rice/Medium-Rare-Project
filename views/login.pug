@@ -1,13 +1,17 @@
 extends layout.pug
 
+include utils.pug
+
 block content
     h3 Login
     +validationErrorSummary(errors)
-        form(action="/users/sign-up", method="post")
-            input(type="hidden" name="_csrf" value=csrfToken)
-            br
-            label Username
-            input(type="text" name="username")
-            br
-            label Password
-            input(type="text" name="password")
+    form(action="/users/login", method="post")
+        input(type="hidden" name="_csrf" value=csrfToken)
+        br
+        label Username
+        input(type="text" name="username")
+        br
+        label Password
+        input(type="password" name="password")
+        br
+        button(type="submit") Submit
