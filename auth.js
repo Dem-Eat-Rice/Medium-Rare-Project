@@ -19,4 +19,4 @@ const getUserToken = (user) => {
     return token;
 }
 
-module.exports = { getUserToken, requireAuth };
+module.exports = { getUserToken };
