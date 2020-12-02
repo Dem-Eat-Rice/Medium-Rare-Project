@@ -9,7 +9,18 @@ const validateSignUpForm = [
     .exists({ checkFalsy: true })
     .withMessage("Please provide a username")
     .isLength({ max: 15 })
-    .withMessage("Username cannot be longer than 15 characters"),
+    .withMessage("Username cannot be longer than 15 characters")
+    .custom((value) => {
+      return db.User.findOne({
+        where: {
+          username: value
+        }
+      })
+        .then((user) => {
+          if (user) throw new Error('The provided username is already in use by another account')
+          // return Promise.reject('The provided email is already in use by another account')
+        })
+    }),
   check("firstName")
     .exists({ checkFalsy: true })
     .withMessage("Please provide a first name")
