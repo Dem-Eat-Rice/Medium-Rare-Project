@@ -144,11 +144,10 @@ router.post("/login", validateLoginForm, csrfProtection, asyncHandler(async (req
 }));
 
 router.post("/logout", asyncHandler(async (req,res) => {
-  console.log("HELLO HERE I AM")
   const {userId} = req.session.auth;
   const user = await db.User.findByPk(userId);
   logoutUser(req,res,user);
-  res.redirect("/users/login");
+  res.render("login", { req });
   
 }));
 // get a current logged in users profile

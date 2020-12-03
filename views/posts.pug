@@ -5,11 +5,15 @@ append head
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 block content 
-    h2 Recent Posts
-    div(class="posts-container")
-    each post in allPosts
-    
-        h1= post.title
+  div.postBody
+    div.recentPosts
+      h2 Recent Posts
+      div(class="posts-container")
+      each post in allPosts
+        h4= post.title
+        h4= post.User.username
+    div.keyWords
+
         
 
 
