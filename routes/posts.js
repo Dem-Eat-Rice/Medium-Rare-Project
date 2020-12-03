@@ -15,9 +15,9 @@ router.get(
     const allPosts = await Post.findAll({
       include: [{ model: User, attributes: ["username"] }],
       order: [["createdAt", "DESC"]],
-      attributes: ["title", "body"],
+      attributes: ["title", "body", "authorId"],
     });
-    res.render("posts", {allPosts});
+    res.render("posts", {allPosts, req});
 
   })
 );

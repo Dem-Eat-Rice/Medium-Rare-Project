@@ -11,16 +11,18 @@ html
       div.navsetup
         nav.navbar.navbar-lg.navbar-light.bg-light
           a.navbar-brand(href="/") Home
-          .navbar-nav
-            a.nav-item.nav-link(href="/users/sign-up") Sign Up
-          .navbar-nav
-            a.nav-item.nav-link(href="/users/login") Log In
+          if req.session.auth === undefined
             .navbar-nav
-            a.nav-item.nav-link(href="/users/profile") My Profile
-          .navbar-nav
-            form(class='logout' action='/users/logout' method='post')
-              button(class='logout-button' type='submit') Logout
-    hr
+              a.nav-item.nav-link(href="/users/sign-up") Sign Up
+            .navbar-nav
+              a.nav-item.nav-link(href="/users/login") Log In
+          if req.session.auth !== undefined
+            .navbar-nav
+              a.nav-item.nav-link(href="/profile") My Profile
+            .navbar-nav
+              form(class='logout' action='/users/logout' method='post')
+                button(class='logout-button' type='submit') Logout
+    
     div.splash
       div.splashwords 
         h1.splashh1 Where Good Steak Ideas Find You...

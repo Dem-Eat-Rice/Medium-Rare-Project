@@ -52,22 +52,20 @@ body, header, nav {
 
 .splash {
   background-color: blanchedalmond;
-  display: block;
-  justify-content: center;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 10px;
 }
 
 .splashimage {
   position: relative;
-  }
+  padding: 5px
+
+}
 
 .splashh1 {
   text-align: center;
-}
-
-.img2 {
-  width: 750px;
-  height: 500px;
-    
 }
 
 
