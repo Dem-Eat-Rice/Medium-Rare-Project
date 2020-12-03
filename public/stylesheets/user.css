@@ -1,3 +1,39 @@
 h1 {
     color: #555555;
 }
+
+body {
+    padding: 20px;
+}
+.formBox {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    border: #555555 solid 1px;
+    border-radius: .5em;
+    width: 500px;
+    padding: 20px;
+    box-shadow: 4px 4px 1px #740505 ;
+}
+
+input {
+    display: block;
+    padding: 5px;
+    margin: 5px;
+    border: #555555 solid 1px; 
+    border-radius: .5em;
+}
+
+.inputDiv {
+    margin-bottom: 10px;
+}
+
+button {
+    position: fixed; right: 12em;
+    padding: 8px 20px;
+    border:0.5em solid #FFFFFF;
+    text-transform:uppercase;
+    font-weight:400;
+    color:#555555;
+    text-align:center;
+}
