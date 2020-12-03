@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const { asyncHandler, csrfProtection, validationResult, check } = require('../utils');
 const db = require('../db/models');
-const { loginUser, logoutUser} = require('../auth');
+const { loginUser, logoutUser } = require('../auth');
 
 
 
@@ -89,11 +89,11 @@ const validate = (validationErrors, res, req, moreErrors) => {
   if (moreErrors) {
     errors.push(moreErrors);
   }
-  return res.status(400).render('login', { errors, csrfToken: req.csrfToken() });
+  return res.status(400).render('login', { errors, csrfToken: req.csrfToken(), req });
 };
 
 router.get("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
-  res.render("sign-up", { csrfToken: req.csrfToken() });
+  res.render("sign-up", { csrfToken: req.csrfToken(), req });
 }));
 
 router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (req, res) => {
@@ -106,7 +106,7 @@ router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (
     err.status = 400;
     err.title = "Bad Request";
     err.errors = errors;
-    return res.status(400).render('sign-up', { errors, csrfToken: req.csrfToken() });
+    return res.status(400).render('sign-up', { errors, csrfToken: req.csrfToken(), req });
   } else {
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await db.User.create({
@@ -122,7 +122,7 @@ router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (
 }));
 
 router.get("/login", csrfProtection, asyncHandler(async (req, res) => {
-  res.render("login", { csrfToken: req.csrfToken() });
+  res.render("login", { csrfToken: req.csrfToken(), req });
 }));
 
 router.post("/login", validateLoginForm, csrfProtection, asyncHandler(async (req, res) => {
@@ -143,12 +143,12 @@ router.post("/login", validateLoginForm, csrfProtection, asyncHandler(async (req
   }
 }));
 
-router.post("/logout", asyncHandler(async (req,res) => {
-  const {userId} = req.session.auth;
+router.post("/logout", asyncHandler(async (req, res) => {
+  const { userId } = req.session.auth;
   const user = await db.User.findByPk(userId);
-  logoutUser(req,res,user);
+  logoutUser(req, res, user);
   res.render("login", { req });
-  
+
 }));
 // get a current logged in users profile
 router.get("/profile/:id(\\d+)")
