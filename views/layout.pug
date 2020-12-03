@@ -15,13 +15,18 @@ html
             a.nav-item.nav-link(href="/users/sign-up") Sign Up
           .navbar-nav
             a.nav-item.nav-link(href="/users/login") Log In
+            .navbar-nav
+            a.nav-item.nav-link(href="/users/profile") My Profile
           .navbar-nav
-            form(class='form-inline pr-4' action='/users/logout' method='post')
-              button(class='btn btn-sm btn-warning' type='submit') Logout
+            form(class='logout' action='/users/logout' method='post')
+              button(class='logout-button' type='submit') Logout
     hr
-    div.splash 
-      h2 Where Good Steak Ideas Find You...
-      p Read and Share Perspectives on Steak... 
+    div.splash
+      div.splashwords 
+        h2 Where Good Steak Ideas Find You...
+        p Read and Share Perspectives on Steak... 
+      div.splashimage
+        img(src='/images/steak1.jpeg')
     hr
     block content
 
