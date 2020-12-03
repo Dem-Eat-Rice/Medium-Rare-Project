@@ -52,14 +52,23 @@ body, header, nav {
 
 .splash {
   background-color: blanchedalmond;
-  display: inline-block;
+  display: block;
   justify-content: center;
 }
 
 .splashimage {
   position: relative;
+  }
+
+.splashh1 {
+  text-align: center;
 }
 
+.img2 {
+  width: 750px;
+  height: 500px;
+    
+}
 
 
 h1 {
