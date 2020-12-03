@@ -28,8 +28,7 @@ input {
     margin-bottom: 10px;
 }
 
-button {
-    position: fixed; right: 12em;
+button#submit {
     padding: 8px 20px;
     border:0.5em solid #FFFFFF;
     text-transform:uppercase;
