@@ -11,7 +11,18 @@ block content
             h4 Last name:   #{userInfo.lastName}
             h4 Username:   #{userInfo.username}
             h4 Email Address:   #{userInfo.email}
-        div #userPostInfo
+        #userPostInfo
             h4 Number of Posts:    #{postCount}
             h4 Number of Likes:    #{userLikes}
+            h4 Top Post:
+        #userBio
+            h4 Bio:
+            div
+    .userButtons
+        button(type="submit" id="profile-button") Edit Profile
+        button(type="submit" id="profile-button") Change Password
+        button(type="submit" id="profile-button") Delete Profile
+
+
+        
 
