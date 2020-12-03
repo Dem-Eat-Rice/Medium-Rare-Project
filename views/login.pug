@@ -10,13 +10,14 @@ block content
     h1 Login
     br
     +validationErrorSummary(errors)
-    form(action="/users/login" method="post" id='loginForm')
-        input(type="hidden" name="_csrf" value=csrfToken)
-        div#loginInput
-        label Username
-        input(type="text" name="username")
-        div#loginInput
-        label Password
-        input(type="password" name="password")
-        div#loginInput
-        button(type="submit") Submit
+    div.formBox
+      form(action="/users/login" method="post" id='loginForm')
+          input(type="hidden" name="_csrf" value=csrfToken)
+          div.inputDiv
+            label Username
+            input(type="text" name="username")
+          div.inputDiv
+            label Password
+            input(type="password" name="password")
+          div.inputDiv
+            button(type="submit") Submit
