@@ -3,7 +3,8 @@ const bcrypt = require('bcryptjs');
 const router = express.Router();
 const { asyncHandler, csrfProtection, validationResult, check } = require('../utils');
 const db = require('../db/models');
-const { loginUser } = require('../auth');
+const { loginUser, logoutUser} = require('../auth');
+
 
 
 
@@ -142,6 +143,13 @@ router.post("/login", validateLoginForm, csrfProtection, asyncHandler(async (req
   }
 }));
 
+router.post("/logout", asyncHandler(async (req,res) => {
+  const {userId} = req.session.auth;
+  const user = await db.User.findByPk(userId);
+  logoutUser(req,res,user);
+  res.redirect("/users/login");
+
+}));
 // get a current logged in users profile
 router.get("/profile/:id(\\d+)")
 
