@@ -142,4 +142,13 @@ router.post("/login", validateLoginForm, csrfProtection, asyncHandler(async (req
   }
 }));
 
+// get a current logged in users profile
+router.get("/profile/:id(\\d+)")
+
+// update something on a users profile
+router.put("/profile/:id()")
+
+// delete 
+
+
 module.exports = router;
