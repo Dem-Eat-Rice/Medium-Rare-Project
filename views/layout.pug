@@ -6,12 +6,18 @@ html
         link(rel='stylesheet' href='/stylesheets/reset.css')
   body
     div.header
-    nav.navbar.navbar-lg.navbar-light.bg-light
-      a.navbar-brand(href="/") Home
-      .navbar-nav
-        a.nav-item.nav-link(href="/users/sign-up") Sign Up
-      .navbar-nav
-        a.nav-item.nav-link(href="/users/login") Log In
+      div.headimage
+        img(src='/images/steak.png')
+      div.navsetup
+        nav.navbar.navbar-lg.navbar-light.bg-light
+          a.navbar-brand(href="/") Home
+          .navbar-nav
+            a.nav-item.nav-link(href="/users/sign-up") Sign Up
+          .navbar-nav
+            a.nav-item.nav-link(href="/users/login") Log In
+          .navbar-nav
+            form(class='form-inline pr-4' action='/users/logout' method='post')
+              button(class='btn btn-sm btn-warning' type='submit') Logout
     hr
     div.splash 
       h2 Where Good Steak Ideas Find You...

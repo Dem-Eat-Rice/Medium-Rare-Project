@@ -22,6 +22,10 @@ body, header, nav {
   font-weight: normal;
 }
 
+.header {
+  background-color: blanchedalmond
+}
+
 h1 {
   font-size: 2rem;
 }
