@@ -108,7 +108,7 @@ router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (
     return res.status(400).render('sign-up', { errors, csrfToken: req.csrfToken() });
   } else {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = db.User.create({
+    const newUser = await db.User.create({
       username,
       firstName,
       lastName,
