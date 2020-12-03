@@ -6,22 +6,31 @@ block content
     h1 Welcome home chef...
     br
     div.profileBox
-        #userPersonalInfo
-            h4 First name:   #{userInfo.firstName}
-            h4 Last name:   #{userInfo.lastName}
-            h4 Username:   #{userInfo.username}
-            h4 Email Address:   #{userInfo.email}
-        #userPostInfo
-            h4 Number of Posts:    #{postCount}
-            h4 Number of Likes:    #{userLikes}
-            h4 Top Post:
-        #userBio
-            h4 Bio:
-            div
-    .userButtons
-        button(type="submit" id="profile-button") Edit Profile
-        button(type="submit" id="profile-button") Change Password
-        button(type="submit" id="profile-button") Delete Profile
+        #userHeader
+            #userPersonalInfo
+                h4 First name:   #{userInfo.firstName}
+                br 
+                h4 Last name:   #{userInfo.lastName}
+                br
+                h4 Username:   #{userInfo.username}
+                br
+                h4 Email Address:   #{userInfo.email}
+                br
+            #userPostInfo
+                h4 Number of Posts:    #{postCount}
+                br
+                h4 Number of Likes:    #{userLikes}
+                br
+                h4 Top Post:
+                br
+            #userBio
+                h4 Bio:
+                br
+                div
+        .userButtons
+            button(type="submit" id="profile-button") Edit Profile
+            button(type="submit" id="profile-button") Change Password
+            button(type="submit" id="profile-button") Delete Profile
 
 
         

@@ -1,0 +1,38 @@
+h1 {
+    color: #555555;
+}
+
+.profileBox {
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    margin: 0 auto;
+    border: #555555 solid 1px;
+    border-radius: .5em;
+    width: 600px;
+    padding: 20px;
+    box-shadow: 4px 4px 1px #740505 ;
+}
+
+button#profile-button {
+    padding: 8px 20px;
+    border:0.5em solid #FFFFFF;
+    text-transform:uppercase;
+    font-weight:400;
+    color:#555555;
+    text-align:center;
+}
+
+#userBio {
+    border: #555555 1px solid;
+    border-radius: .5em;
+    margin: 2px;
+    padding: 2px;
+}
+
+#userHeader{
+    border: #555555 1px solid;
+    border-radius: .5em;
+    margin: 2px;
+    padding: 2px;
+}
