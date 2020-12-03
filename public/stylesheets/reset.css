@@ -26,6 +26,51 @@ body, header, nav {
   background-color: blanchedalmond
 }
 
+.navsetup {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.logout-button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.navsetup a, .logout {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.splash {
+  background-color: blanchedalmond;
+  display: block;
+  justify-content: center;
+}
+
+.splashimage {
+  position: relative;
+  }
+
+.splashh1 {
+  text-align: center;
+}
+
+.img2 {
+  width: 750px;
+  height: 500px;
+    
+}
+
+
 h1 {
   font-size: 2rem;
 }
