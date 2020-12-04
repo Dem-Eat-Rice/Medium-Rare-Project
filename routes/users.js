@@ -202,10 +202,17 @@ router.post(
     if (username) user.username = username;
     if (email) user.email = email;
     await user.save();
-    res.redirect("/profile")
+    res.redirect("/profile");
   })
 );
 
-// delete
+router.post("/delete", asyncHandler(async (req, res) => {
+  const user = await db.User.findByPk(req.session.auth.userId);
+  const userPosts = await db.Post.findAll({ where: { authorId: req.session.auth.userId } });
+  logoutUser(req, res, user);
+  userPosts.forEach(async (post) => await post.destroy());
+  await user.destroy();
+  res.redirect("/")
+}));
 
 module.exports = router;

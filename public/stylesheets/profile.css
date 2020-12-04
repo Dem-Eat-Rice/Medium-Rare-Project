@@ -25,7 +25,8 @@ body {
 
 #profile-button,
 #profile-button-edit,
-#submit-profile-update {
+#submit-profile-update,
+#profile-button-delete {
   margin: 2px;
   padding: 3px;
   background-color: #333;

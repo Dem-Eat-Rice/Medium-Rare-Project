@@ -14,6 +14,7 @@ block content
                 h4 Last name:   #{userInfo.lastName}
                 br
                 h4 Username:   #{userInfo.username}
+                div(type= "hidden" id="username")= userInfo.username
                 br
                 h4 Email Address:   #{userInfo.email}
                 br
@@ -44,7 +45,9 @@ block content
         .userButtons
             button(type="submit" id="profile-button-edit") Edit Profile
             button(type="submit" id="profile-button") Change Password
-            button(type="submit" id="profile-button") Delete Profile
+            form(action="/users/delete" method="post" id="update-form")
+                input(type="hidden" name="_method" value="delete")
+                button(type="submit" id="profile-button-delete") Delete Profile
             button(type="submit" id="profile-button") Create/Edit a bio
     br
     br
