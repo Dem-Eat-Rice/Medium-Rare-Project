@@ -11,8 +11,9 @@ block content
       hr
       div.posts-container
       each post in allPosts
-        h2=post.title
-        h6 Author: #{post.User.username}
+       li
+         a(href=`/posts/${post.id}`) #{post.title}
+         div.authors Author: #{post.User.username}
     div.keyWords
       h1 Post Keywords
       hr

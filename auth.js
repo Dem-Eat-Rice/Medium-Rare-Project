@@ -5,7 +5,8 @@ const loginUser = (req, res, user) => {
 };
 
 const restoreUser = async (req, res, next) => {
-  console.log(req.session);
+  // console.log(req.session);
+  // debugger;
   if (req.session.auth) {
     const { userId } = req.session.auth;
     try{

@@ -15,11 +15,24 @@ router.get(
     const allPosts = await Post.findAll({
       include: [{ model: User, attributes: ["username"] }],
       order: [["createdAt", "DESC"]],
-      attributes: ["title", "body", "authorId"],
+      attributes: ["title", "body", "authorId", "id"],
     });
     res.render("posts", {allPosts, req});
 
   })
 );
+
+// link to specific post(\\d+)
+router.get("/:id(\\d+)",
+  asyncHandler(async (req, res) => {
+    const postId = parseInt(req.params.id);
+    const readPosts = await Post.findByPk(postId);
+    if (readPosts) {
+      res.json({ readPosts });
+    // } else {
+    //   next(postNotFoundError(postId));
+    // }
+  }
+}));
 
 module.exports = router;
