@@ -10,8 +10,11 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts');
 const profilesRouter = require('./routes/profile')
+const { asyncHandler, validationResult } = require("./utils");
 //const membersPost = require('./routes/...');
 const { restoreUser, requireAuth } = require('./auth');
+const db = require("./db/models");
+const { Post, User } = db;
 
 const app = express();
 
@@ -40,9 +43,21 @@ app.use(
 store.sync();
 
 app.use(restoreUser);
-app.use("/", postsRouter);
+app.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    const allPosts = await Post.findAll({
+      include: [{ model: User, attributes: ["username"] }],
+      order: [["createdAt", "DESC"]],
+      attributes: ["title", "body", "authorId", "id"],
+    });
+    res.render("posts", { allPosts, req });
+  })
+);
+
 app.use('/users', usersRouter);
 app.use(requireAuth);
+app.use("/posts", postsRouter);
 
 app.use('/profile', profilesRouter)
 //app.use('/...', membersPost)
@@ -60,7 +75,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error', {req});
 });
 
 module.exports = app;
