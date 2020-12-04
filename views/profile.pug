@@ -24,7 +24,9 @@ block content
                 br
                 h4 Top Post:
                 br
-                form(action="/users/update" method="put" id="update-form")
+                form(action="/users/update" method="post" id="update-form")
+                    input(type="hidden" name="_csrf" value=csrfToken)
+                    input(type="hidden" name="_method" value="put")
                     div(style="display: none" class="update-user") Update first name here...
                         input(type="text" name="firstName")
                     div(style="display: none" class="update-user") Update Last name here...

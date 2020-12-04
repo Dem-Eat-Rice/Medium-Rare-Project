@@ -191,17 +191,17 @@ router.post(
 router.get("/profile/:id(\\d+)");
 
 // update something on a users profile
-router.put(
+router.post(
   "/update",
   csrfProtection,
   asyncHandler(async (req, res) => {
+    const user = await db.User.findByPk(req.session.auth.userId)
     const { firstName, lastName, username, email } = req.body;
-    await db.User.update({
-      username: username,
-      firstName: firstName,
-      lastName: lastName,
-      email: email
-    });
+    if (firstName) user.firstName = firstName;
+    if (lastName) user.lastName = lastName;
+    if (username) user.username = username;
+    if (email) user.email = email;
+    await user.save();
     res.redirect("/profile")
   })
 );
