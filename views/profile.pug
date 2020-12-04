@@ -14,7 +14,6 @@ block content
                 h4 Last name:   #{userInfo.lastName}
                 br
                 h4 Username:   #{userInfo.username}
-                div(type= "hidden" id="username")= userInfo.username
                 br
                 h4 Email Address:   #{userInfo.email}
                 br
@@ -25,7 +24,7 @@ block content
                 br
                 h4 Top Post:
                 br
-                form(action="/users/update" method="post" id="update-form")
+                form(action="/users/update" method="post")
                     input(type="hidden" name="_csrf" value=csrfToken)
                     input(type="hidden" name="_method" value="put")
                     div(style="display: none" class="update-user") Update first name here...
@@ -38,17 +37,27 @@ block content
                         input(type="text" name="email")
                     div(style="display: none" class="update-user")
                         button(type="submit" id="submit-profile-update") Complete Updates
-
             #userBio
+            if !userInfo.bio
+                h4 Create a bio:
+                form(action="/users/createbio" method="post")
+                    input(type="hidden" name="_csrf" value=csrfToken)
+                    input(type="hidden" name="_method" value="put")
+                    textarea(name="newBio" id="updateBioTextArea")
+                    br
+                    button(type="submit" id="profile-button-bio") Create Bio
             if userInfo.bio
                 h4 Bio: #{userInfo.bio}
+                form(action="/users/deleteBio" method="post")
+                    input(type="hidden" name="_csrf" value=csrfToken)
+                    input(type="hidden" name="_method" value="delete")
+                    button(type="submit" id="profile-button-bio") Update Bio
         .userButtons
             button(type="submit" id="profile-button-edit") Edit Profile
             button(type="submit" id="profile-button") Change Password
-            form(action="/users/delete" method="post" id="update-form")
+            form(action="/users/delete" method="post")
                 input(type="hidden" name="_method" value="delete")
                 button(type="submit" id="profile-button-delete") Delete Profile
-            button(type="submit" id="profile-button") Create/Edit a bio
     br
     br
     br

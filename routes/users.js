@@ -215,4 +215,19 @@ router.post("/delete", asyncHandler(async (req, res) => {
   res.redirect("/")
 }));
 
+router.post("/createbio", csrfProtection, asyncHandler(async (req, res) => {
+  const { newBio } = req.body;
+  const user = await db.User.findByPk(req.session.auth.userId);
+  user.bio = newBio;
+  await user.save();
+  res.redirect("/profile");
+}))
+
+router.post("/deleteBio", csrfProtection, asyncHandler(async (req, res) => {
+  const user = await db.User.findByPk(req.session.auth.userId);
+  user.bio = '';
+  await user.save();
+  res.redirect("/profile");
+}));
+
 module.exports = router;
