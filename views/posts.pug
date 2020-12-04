@@ -1,19 +1,21 @@
 extends layout.pug
 append head
   //- add page specific styles by appending to the head
-  link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/post.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 block content 
   div.postBody
     div.recentPosts
-      h2 Recent Posts
-      div(class="posts-container")
+      h1 Recent Posts
+      hr
+      div.posts-container
       each post in allPosts
-        h4= post.title
-        h4= post.User.username
+        h2=post.title
+        h6 Author: #{post.User.username}
     div.keyWords
-
-        
+      h1 Post Keywords
+      hr
+      
 
 
