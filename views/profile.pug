@@ -1,7 +1,7 @@
 extends layout.pug
 append head
     link(rel="stylesheet" href="/stylesheets/profile.css")
-    script(src="/javascripts/index.js" type="module" defer)
+    script(src="/javascripts/profile.js" type="module" defer)
 block content
     h1 Welcome to your profile chef...
     br
@@ -9,6 +9,7 @@ block content
         #userHeader
             #userPersonalInfo
                 h4 First name:   #{userInfo.firstName}
+                #inputDiv
                 br 
                 h4 Last name:   #{userInfo.lastName}
                 br
@@ -23,11 +24,23 @@ block content
                 br
                 h4 Top Post:
                 br
+                form(action="/users/update" method="put" id="update-form")
+                    div(style="display: none" class="update-user") Update first name here...
+                        input(type="text" name="firstName")
+                    div(style="display: none" class="update-user") Update Last name here...
+                        input(type="text" name="lastName")
+                    div(style="display: none" class="update-user") Update username here...
+                        input(type="text" name="username")
+                    div(style="display: none" class="update-user") Update email here...
+                        input(type="text" name="email")
+                    div(style="display: none" class="update-user")
+                        button(type="submit" id="submit-profile-update") Complete Updates
+
             #userBio
             if userInfo.bio
                 h4 Bio: #{userInfo.bio}
         .userButtons
-            button(type="submit" id="profile-button") Edit Profile
+            button(type="submit" id="profile-button-edit") Edit Profile
             button(type="submit" id="profile-button") Change Password
             button(type="submit" id="profile-button") Delete Profile
             button(type="submit" id="profile-button") Create/Edit a bio
