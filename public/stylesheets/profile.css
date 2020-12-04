@@ -25,7 +25,9 @@ body {
 
 #profile-button,
 #profile-button-edit,
-#submit-profile-update {
+#submit-profile-update,
+#profile-button-delete,
+#profile-button-bio {
   margin: 2px;
   padding: 3px;
   background-color: #333;
@@ -70,5 +72,10 @@ button#profile-button:hover {
 }
 
 .update-user {
+  border: 0;
   width: 300px;
+}
+
+#updateBioTextArea {
+  width: 550px;
 }
