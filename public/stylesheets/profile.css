@@ -24,7 +24,8 @@ body {
 }
 
 #profile-button,
-#profile-button-edit {
+#profile-button-edit,
+#submit-profile-update {
   margin: 2px;
   padding: 3px;
   background-color: #333;
@@ -48,8 +49,7 @@ body {
   font: inherit;
 }
 
-.userButtons,
-#update-profile-user {
+.userButtons {
   padding-top: 20px;
   padding-right: 10px;
   display: flex;
@@ -58,6 +58,7 @@ body {
   margin: 0 auto;
   font: inherit;
 }
+
 button#profile-button:hover {
   font-weight: bold;
 }

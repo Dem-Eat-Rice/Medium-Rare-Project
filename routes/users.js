@@ -1,18 +1,19 @@
 const express = require("express");
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const router = express.Router();
-const { asyncHandler, csrfProtection, validationResult, check } = require('../utils');
-const db = require('../db/models');
-const { loginUser, logoutUser } = require('../auth');
-
-
-
-
+const {
+  asyncHandler,
+  csrfProtection,
+  validationResult,
+  check,
+} = require("../utils");
+const db = require("../db/models");
+const { loginUser, logoutUser } = require("../auth");
 
 async function isPassword(password, hashedPass) {
   const isPassword = await bcrypt.compare(password, hashedPass);
   return isPassword;
-};
+}
 
 const validateLoginForm = [
   check("username")
@@ -22,7 +23,7 @@ const validateLoginForm = [
     .withMessage("Username cannot be longer than 15 characters"),
   check("password")
     .exists({ checkFalsy: true })
-    .withMessage("Please provide a password")
+    .withMessage("Please provide a password"),
 ];
 
 const validateSignUpForm = [
@@ -34,12 +35,14 @@ const validateSignUpForm = [
     .custom((value) => {
       return db.User.findOne({
         where: {
-          username: value
-        }
-      })
-        .then((user) => {
-          if (user) throw new Error('The provided username is already in use by another account')
-        })
+          username: value,
+        },
+      }).then((user) => {
+        if (user)
+          throw new Error(
+            "The provided username is already in use by another account"
+          );
+      });
     }),
   check("firstName")
     .exists({ checkFalsy: true })
@@ -59,12 +62,14 @@ const validateSignUpForm = [
     .custom((value) => {
       return db.User.findOne({
         where: {
-          email: value
-        }
-      })
-        .then((user) => {
-          if (user) throw new Error('The provided email is already in use by another account')
-        })
+          email: value,
+        },
+      }).then((user) => {
+        if (user)
+          throw new Error(
+            "The provided email is already in use by another account"
+          );
+      });
     }),
   check("password")
     .exists({ checkFalsy: true })
@@ -74,10 +79,10 @@ const validateSignUpForm = [
     .withMessage("Please provide a password")
     .custom((value, { req }) => {
       if (value !== req.body.password) {
-        throw new Error("Please make sure passwords match.")
+        throw new Error("Please make sure passwords match.");
       }
       return true;
-    })
+    }),
 ];
 
 const validate = (validationErrors, res, req, moreErrors) => {
@@ -89,74 +94,118 @@ const validate = (validationErrors, res, req, moreErrors) => {
   if (moreErrors) {
     errors.push(moreErrors);
   }
-  return res.status(400).render('login', { errors, csrfToken: req.csrfToken(), req });
+  return res
+    .status(400)
+    .render("login", { errors, csrfToken: req.csrfToken(), req });
 };
 
-router.get("/sign-up", csrfProtection, asyncHandler(async (req, res) => {
-  res.render("sign-up", { csrfToken: req.csrfToken(), req });
-}));
+router.get(
+  "/sign-up",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    res.render("sign-up", { csrfToken: req.csrfToken(), req });
+  })
+);
 
-router.post("/sign-up", validateSignUpForm, csrfProtection, asyncHandler(async (req, res) => {
-  const { username, firstName, lastName, email, password } = req.body;
-  console.log(username);
-  const validationErrors = validationResult(req);
-  if (!validationErrors.isEmpty()) {
-    const errors = validationErrors.array().map((error) => error.msg);
-    const err = Error("Bad Request");
-    err.status = 400;
-    err.title = "Bad Request";
-    err.errors = errors;
-    return res.status(400).render('sign-up', { errors, csrfToken: req.csrfToken(), req });
-  } else {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = await db.User.create({
-      username,
-      firstName,
-      lastName,
-      email,
-      hashedPassword
-    })
-    loginUser(req, res, newUser);
-    res.redirect("/");
-  }
-}));
-
-router.get("/login", csrfProtection, asyncHandler(async (req, res) => {
-  res.render("login", { csrfToken: req.csrfToken(), req });
-}));
-
-router.post("/login", validateLoginForm, csrfProtection, asyncHandler(async (req, res) => {
-  const { username, password } = req.body;
-  const validationErrors = validationResult(req);
-
-  if (!validationErrors.isEmpty()) {
-    validate(validationErrors, res, req);
-  } else {
-    const user = await db.User.findOne({ where: { username } })
-    if (user && await isPassword(password, user.hashedPassword.toString())) {
-      loginUser(req, res, user);
-      console.log('pass is correct');
-      res.redirect('/');
+router.post(
+  "/sign-up",
+  validateSignUpForm,
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const { username, firstName, lastName, email, password } = req.body;
+    console.log(username);
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+      const errors = validationErrors.array().map((error) => error.msg);
+      const err = Error("Bad Request");
+      err.status = 400;
+      err.title = "Bad Request";
+      err.errors = errors;
+      return res
+        .status(400)
+        .render("sign-up", { errors, csrfToken: req.csrfToken(), req });
     } else {
-      validate(validationErrors, res, req, 'Please re-enter your credentials');
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = await db.User.create({
+        username,
+        firstName,
+        lastName,
+        email,
+        hashedPassword,
+      });
+      loginUser(req, res, newUser);
+      res.redirect("/");
     }
-  }
-}));
+  })
+);
 
-router.post("/logout", asyncHandler(async (req, res) => {
-  const { userId } = req.session.auth;
-  const user = await db.User.findByPk(userId);
-  logoutUser(req, res, user);
-  res.redirect('/users/login');
+router.get(
+  "/login",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    res.render("login", { csrfToken: req.csrfToken(), req });
+  })
+);
 
-}));
+router.post(
+  "/login",
+  validateLoginForm,
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const { username, password } = req.body;
+    const validationErrors = validationResult(req);
+
+    if (!validationErrors.isEmpty()) {
+      validate(validationErrors, res, req);
+    } else {
+      const user = await db.User.findOne({ where: { username } });
+      if (
+        user &&
+        (await isPassword(password, user.hashedPassword.toString()))
+      ) {
+        loginUser(req, res, user);
+        console.log("pass is correct");
+        res.redirect("/");
+      } else {
+        validate(
+          validationErrors,
+          res,
+          req,
+          "Please re-enter your credentials"
+        );
+      }
+    }
+  })
+);
+
+router.post(
+  "/logout",
+  asyncHandler(async (req, res) => {
+    const { userId } = req.session.auth;
+    const user = await db.User.findByPk(userId);
+    logoutUser(req, res, user);
+    res.redirect("/users/login");
+  })
+);
 // get a current logged in users profile
-router.get("/profile/:id(\\d+)")
+router.get("/profile/:id(\\d+)");
 
 // update something on a users profile
-router.put("/profile/:id()")
+router.put(
+  "/update",
+  csrfProtection,
+  asyncHandler(async (req, res) => {
+    const { firstName, lastName, username, email } = req.body;
+    await db.User.update({
+      username: username,
+      firstName: firstName,
+      lastName: lastName,
+      email: email
+    });
+    res.redirect("/profile")
+  })
+);
 
-// delete 
-
+// delete
 
 module.exports = router;
