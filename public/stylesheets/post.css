@@ -1,0 +1,21 @@
+.postBody {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.recentPosts {
+    margin: 2px;
+    border: 1px;
+    border-radius: .5em;
+    width: 48%;
+    padding: 20px;
+    }
+
+.keyWords {
+    margin: 2px;
+    border: 1px;
+    border-radius: .5em;
+    width: 48%;
+    padding: 20px;
+    }
