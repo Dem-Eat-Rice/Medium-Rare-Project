@@ -30,6 +30,9 @@ module.exports = {
         type: Sequelize.STRING.BINARY,
         allowNull: false,
       },
+      bio: {
+        type: Sequelize.STRING(280)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

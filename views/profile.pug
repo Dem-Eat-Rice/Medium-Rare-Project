@@ -3,7 +3,7 @@ append head
     link(rel="stylesheet" href="/stylesheets/profile.css")
     script(src="/javascripts/index.js" type="module" defer)
 block content
-    h1 Welcome home chef...
+    h1 Welcome to your profile chef...
     br
     div.profileBox
         #userHeader
@@ -24,14 +24,15 @@ block content
                 h4 Top Post:
                 br
             #userBio
-                h4 Bio:
-                br
-                div
+            if userInfo.bio
+                h4 Bio: #{userInfo.bio}
         .userButtons
             button(type="submit" id="profile-button") Edit Profile
             button(type="submit" id="profile-button") Change Password
             button(type="submit" id="profile-button") Delete Profile
-
-
-        
+            button(type="submit" id="profile-button") Create/Edit a bio
+    br
+    br
+    br
+            
 

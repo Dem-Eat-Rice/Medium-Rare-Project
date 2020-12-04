@@ -147,7 +147,7 @@ router.post("/logout", asyncHandler(async (req, res) => {
   const { userId } = req.session.auth;
   const user = await db.User.findByPk(userId);
   logoutUser(req, res, user);
-  res.render("login", { req });
+  res.redirect('/users/login');
 
 }));
 // get a current logged in users profile
