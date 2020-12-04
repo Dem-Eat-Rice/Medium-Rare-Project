@@ -25,13 +25,16 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING.BINARY,
         allowNull: false,
       },
+      bio: {
+        type: Sequelize.STRING(280)
+      }
     },
     {}
   );
   User.associate = function (models) {
     User.hasMany(models.Like, { foreignKey: "userId" });
-    User.hasMany(models.Post, { foreignKey: "authorId"});
-    User.hasMany(models.Comment, { foreignKey: "userId"})
+    User.hasMany(models.Post, { foreignKey: "authorId" });
+    User.hasMany(models.Comment, { foreignKey: "userId" })
   };
   return User;
 };
