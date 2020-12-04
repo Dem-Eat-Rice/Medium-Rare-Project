@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       bio: {
-        type: Sequelize.STRING(280)
+        type: DataTypes.STRING(280)
       }
     },
     {}
