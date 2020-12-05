@@ -14,7 +14,7 @@ const { asyncHandler, validationResult } = require("./utils");
 //const membersPost = require('./routes/...');
 const { restoreUser, requireAuth } = require('./auth');
 const db = require("./db/models");
-const { Post, User } = db;
+const { Post, User, Tag } = db;
 
 const app = express();
 
@@ -51,7 +51,11 @@ app.get(
       order: [["createdAt", "DESC"]],
       attributes: ["title", "body", "authorId", "id"],
     });
-    res.render("posts", { allPosts, req });
+    const taggedPosts = await Post.findAll({
+      include: [{ model: Tag }],
+    });
+    // res.json({ taggedPosts });
+    res.render("posts", { allPosts, taggedPosts, req });
   })
 );
 

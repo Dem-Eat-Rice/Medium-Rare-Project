@@ -58,7 +58,7 @@ body, header, nav {
   padding: 10px;
   height: 300px;
   background-image: url("/images/steak1.jpeg");
-  background-size: 100%;
+  background-size: 110%;
   background-position-x: center;
   background-position-y: center;
 }
