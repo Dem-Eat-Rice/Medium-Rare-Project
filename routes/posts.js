@@ -6,7 +6,7 @@ const db = require("../db/models");
 const { check } = require("express-validator");
 
 
-const { Post, User } = db;
+const { Post, User, Tag } = db;
 
 
 router.get(
@@ -17,7 +17,11 @@ router.get(
       order: [["createdAt", "DESC"]],
       attributes: ["title", "body", "authorId", "id"],
     });
-    res.render("posts", {allPosts, req});
+    const taggedPosts = await Post.findAll({
+      include: [{ model: Tag }],
+    });
+    // res.json({ taggedPosts });
+    res.render("posts", {allPosts, taggedPosts, req});
 
   })
 );
@@ -26,13 +30,20 @@ router.get(
 router.get("/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const postId = parseInt(req.params.id);
-    const readPosts = await Post.findByPk(postId);
-    if (readPosts) {
-      res.json({ readPosts });
+    const readPosts = await Post.findByPk(postId, {
+      include: [{ model: User, attributes: ["username"] }]
+    });
+    // if (allPosts) {
+    //   res.json(allPosts);
     // } else {
     //   next(postNotFoundError(postId));
     // }
+    // res.json(allPosts)
+    // allPosts.forEach(element => {
+    //   console.log(element)
+    // });
+    res.render('article', {title: readPosts.title, body: readPosts.body, author: readPosts.User.username, req});
   }
-}));
+));
 
 module.exports = router;

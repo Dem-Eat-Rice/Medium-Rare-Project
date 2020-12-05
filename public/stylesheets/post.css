@@ -22,7 +22,7 @@
 
 .tagshell {
     display: grid;
-    grid-template-columns: repeat(5, 20%);
+    grid-template-columns: repeat(3, 33.3%);
     grid-template-rows: repeat(5, 20%);
     grid-column: 4;
     

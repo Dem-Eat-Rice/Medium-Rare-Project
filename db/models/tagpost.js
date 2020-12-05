@@ -18,8 +18,6 @@ module.exports = (sequelize, DataTypes) => {
   );
   TagPost.associate = function (models) {
     // associations can be defined here
-    TagPost.belongsTo(models.Tag, {foreignKey: "tagId"});
-    TagPost.belongsTo(models.Post, {foreignKey: "postId"});
   };
   return TagPost;
 };

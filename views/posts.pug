@@ -18,9 +18,7 @@ block content
       h1 Post Keywords
       hr
       div.tagshell
-        p test
-        p test 2
-        p test 3
-      
-
-
+        each post in taggedPosts
+          each tag in post.Tags
+            li
+              a(href=`/posts/${tag.id}`) #{tag.tag}
