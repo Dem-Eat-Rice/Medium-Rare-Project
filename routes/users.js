@@ -184,7 +184,7 @@ router.post(
     const { userId } = req.session.auth;
     const user = await db.User.findByPk(userId);
     logoutUser(req, res, user);
-    res.redirect("/users/login");
+    res.redirect("/");
   })
 );
 // get a current logged in users profile
