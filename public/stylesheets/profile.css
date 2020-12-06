@@ -27,7 +27,8 @@ body {
 #profile-button-edit,
 #submit-profile-update,
 #profile-button-delete,
-#profile-button-bio {
+#profile-button-bio,
+#profile-button-changepassword {
   margin: 2px;
   padding: 3px;
   background-color: #333;
@@ -78,4 +79,15 @@ button#profile-button:hover {
 
 #updateBioTextArea {
   width: 550px;
+}
+
+#changePassword {
+  display: flex;
+  align-items: flex-start;
+  align-content: space-between;
+  padding-top: 30px;
+}
+
+button {
+  margin: 5px;
 }
