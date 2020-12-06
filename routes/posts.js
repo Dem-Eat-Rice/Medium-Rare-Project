@@ -31,17 +31,10 @@ router.get("/:id(\\d+)",
   asyncHandler(async (req, res) => {
     const postId = parseInt(req.params.id);
     const readPosts = await Post.findByPk(postId, {
-      include: [{ model: User, attributes: ["username"] }]
+      include: [
+        { model: User, attributes: ["username"] }, { model: Tag}
+        ],
     });
-    // if (allPosts) {
-    //   res.json(allPosts);
-    // } else {
-    //   next(postNotFoundError(postId));
-    // }
-    // res.json(allPosts)
-    // allPosts.forEach(element => {
-    //   console.log(element)
-    // });
     res.render('article', {title: readPosts.title, body: readPosts.body, author: readPosts.User.username, req});
   }
 ));

@@ -13,7 +13,7 @@ block content
       each post in allPosts
        li
          a(href=`/posts/${post.id}`) #{post.title}
-         div.authors Author: #{post.User.username}
+         div.authors Written By: #{post.User.username}
     div.keyWords
       h1 Post Keywords
       hr

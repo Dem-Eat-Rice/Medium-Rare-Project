@@ -1,0 +1,24 @@
+.artHead {
+    padding: 10px;
+    text-shadow: lightgray 2px 2px;
+}
+
+.authName {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.tags {
+    margin-left: 10px;
+}
+
+.postbox {
+  color: black;
+  background-color: rgb(238, 238, 238);
+  margin: 20px;
+  border: #555555 solid 0px;
+  border-radius: 0.5em;
+  width: auto;
+  padding: 20px;
+  box-shadow: 4px 4px 7px #333;
+}
