@@ -12,8 +12,6 @@ body {
   color: #555555;
   background-color: rgb(238, 238, 238);
   display: grid;
-  align-content: center;
-  /* justify-content: center; */
   margin: 0 auto;
   border: #555555 solid 0px;
   border-radius: 0.5em;
