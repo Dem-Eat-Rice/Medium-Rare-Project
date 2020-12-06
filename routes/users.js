@@ -26,6 +26,21 @@ const validateLoginForm = [
     .withMessage("Please provide a password"),
 ];
 
+const validateUpdatePassword = [
+  check("password")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provive a password"),
+  check("confirmPassword")
+    .exists({ checkFalsy: true })
+    .withMessage("Please provide a confirmation password")
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error("Please make sure passwords match.");
+      }
+      return true;
+    }),
+]
+
 const validateSignUpForm = [
   check("username")
     .exists({ checkFalsy: true })
@@ -228,6 +243,41 @@ router.post("/deleteBio", csrfProtection, asyncHandler(async (req, res) => {
   user.bio = '';
   await user.save();
   res.redirect("/profile");
+}));
+
+router.post("/update-password", validateUpdatePassword, csrfProtection, asyncHandler(async (req, res) => {
+  const { password, confirmPassword } = req.body;
+  const validationErrors = validationResult(req);
+  const { userId } = req.session.auth;
+  const userInfo = await db.User.findByPk(userId);
+  const postCount = await db.Post.count({
+    where: { authorId: userId },
+  })
+  const userLikes = await db.Like.count({
+    include: {
+      model: db.Post,
+      where: { authorId: userId }
+    },
+  })
+  if (!validationErrors.isEmpty()) {
+    const errors = validationErrors.array().map((error) => error.msg);
+    const err = Error("Bad Request");
+    err.status = 400;
+    err.title = "Bad Request";
+    err.errors = errors;
+    return res
+      .status(400)
+      .render("profile", { errors, userInfo, req, postCount, userLikes, csrfToken: req.csrfToken() });
+  } else {
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    userInfo.update({
+      hashedPassword: hashedPassword
+    });
+    await userInfo.save();
+    loginUser(req, res, userInfo);
+    res.redirect("/profile");
+  }
 }));
 
 module.exports = router;

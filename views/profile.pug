@@ -1,9 +1,12 @@
 extends layout.pug
+include utils.pug
 append head
     link(rel="stylesheet" href="/stylesheets/profile.css")
     script(src="/javascripts/profile.js" type="module" defer)
 block content
     h1 Welcome to your profile chef...
+    br
+    +validationErrorSummary(errors)
     br
     div.profileBox
         #userHeader
@@ -38,6 +41,8 @@ block content
                     div(style="display: none" class="update-user")
                         button(type="submit" id="submit-profile-update") Complete Updates
             #userBio
+                form(action="/users/update-password" method="post" id="update-password-form")
+                    input(type="hidden" name="_csrf" value=csrfToken)
             if !userInfo.bio
                 h4 Create a bio:
                 form(action="/users/createbio" method="post")
