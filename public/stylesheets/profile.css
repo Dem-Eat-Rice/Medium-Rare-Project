@@ -86,13 +86,12 @@ body {
   width: 550px;
 }
 
-#changePassword {
+#changePassword label {
   display: flex;
   align-items: flex-start;
-  align-content: space-between;
-  padding-top: 30px;
+  padding-top: 15px;
 }
 
-button {
-  margin: 5px;
+#profile-button {
+  margin-top: 6px;
 }
