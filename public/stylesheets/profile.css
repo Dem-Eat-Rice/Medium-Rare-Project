@@ -62,7 +62,12 @@ body {
   font: inherit;
 }
 
-button#profile-button:hover {
+#profile-button:hover,
+#profile-button-edit:hover,
+#submit-profile-update:hover,
+#profile-button-delete:hover,
+#profile-button-bio:hover,
+#profile-button-changepassword:hover {
   font-weight: bold;
 }
 
