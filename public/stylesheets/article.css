@@ -20,18 +20,18 @@
     
     color: black;
     background-color: rgb(238, 238, 238);
-    margin: 20px 20px 20px 0px;
+    margin: 20px 20px 20px 20px;
     border: #555555 solid 0px;
     border-radius: 0.5em;
     width: auto;
     max-height: auto;
-    padding: 20px 20px 20px 10px;
+    padding: 20px 20px 20px 20px;
     box-shadow: 4px 4px 7px #333;
 }
 
 .postImg {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    display: flex;
+    justify-content: center;
     /* background-image: url('https://www.gimmesomeoven.com/wp-content/uploads/2018/09/How-To-Bake-Steak-In-The-Oven-Recipe-3.jpg'); */
 
 
