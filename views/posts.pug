@@ -5,20 +5,22 @@ append head
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 block content 
-  div.postBody
-    div.recentPosts
-      h1 Recent Posts
-      hr
-      div.posts-container
-      each post in allPosts
-       li
-         a(href=`/posts/${post.id}`) #{post.title}
-         div.authors Written By: #{post.User.username}
-    div.keyWords
-      h1 Post Keywords
-      hr
-      div.tagshell
-        each post in taggedPosts
-          each tag in post.Tags
+    div.mainBody
+      div.postBody
+        div.recentPosts
+          h1 Recent Posts
+          hr
+          div.posts-container
+          each post in allPosts
             li
-              a(href=`/posts/${tag.id}`) #{tag.tag}
+              a(href=`/posts/${post.id}`) #{post.title}
+              div.authors Written By: #{post.User.username}
+      div.postBody2
+        div.keyWords
+          h1 Post Keywords
+          hr
+          div.tagshell
+            each post in taggedPosts
+              each tag in post.Tags
+                li
+                  a(href=`/posts/${tag.id}`) #{tag.tag}
