@@ -52,9 +52,10 @@ block content
                     input(type="hidden" name="_csrf" value=csrfToken)
                     input(type="hidden" name="_method" value="delete")
                     button(type="submit" id="profile-button-bio") Update Bio
+            #changePassword
         .userButtons
             button(type="submit" id="profile-button-edit") Edit Profile
-            button(type="submit" id="profile-button") Change Password
+            button(type="submit" id="profile-button-changepassword") Change Password
             form(action="/users/delete" method="post")
                 input(type="hidden" name="_method" value="delete")
                 button(type="submit" id="profile-button-delete") Delete Profile
