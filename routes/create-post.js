@@ -55,17 +55,9 @@ router.post(
     if (!validationError.isEmpty()) {
       validate(validationError, res, req);
     } else {
-      const { title, postBody } = req.body;
-      const post = await db.Post.findAll({
-        where: { authorId: req.session.auth.userId },
-      });
-      post.title = title;
-      post.body = postBody;
-
-      await Post.create({
-        title,
-        postBody,
-      });
+      const { postTitle, createNewPostTextArea } = req.body;
+      const newPost = await db.Post.create({ authorId: req.session.auth.userId, title: postTitle, body: createNewPostTextArea });
+      await newPost.save()
 
       res.redirect("/");
     }
