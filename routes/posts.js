@@ -35,6 +35,7 @@ router.get("/:id(\\d+)",
         { model: User, attributes: ["username"] }, { model: Tag}
         ],
     });
+
     res.render('article', {title: readPosts.title, body: readPosts.body, author: readPosts.User.username, req});
   }
 ));
