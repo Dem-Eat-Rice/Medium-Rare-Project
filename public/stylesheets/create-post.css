@@ -1,0 +1,31 @@
+h1 {
+  color: #555555;
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+#userPostForm {
+  color: #555555;
+  background-color: rgb(238, 238, 238);
+  display: grid;
+  align-content: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: #555555 solid 0px;
+  border-radius: 0.5em;
+  width: 600px;
+  padding: 20px;
+  box-shadow: 4px 4px 7px #333;
+  font: inherit;
+}
+
+#create-post-button {
+  margin: 2px;
+  padding: 3px;
+  background-color: #333;
+  border: 1px solid #333;
+  border-radius: 0.5em;
+  color: white;
+  text-align: center;
+  font: inherit;
+  width: 140px;
+}

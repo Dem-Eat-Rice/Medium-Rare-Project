@@ -1,0 +1,26 @@
+extends layout.pug
+include utils.pug
+
+append head
+    link(rel="stylesheet" href="/stylesheets/create-post.css")
+    script(src="/javascripts/create-post.js" type="module" defer)
+block content 
+    h1 Create Post
+    br
+    +validationErrorSummary(errors)
+    #userPostForm
+        form(action="/create-post" method="post" id="new-post")
+            div
+                label(for="csrf")
+                input(type="hidden" value=csrfToken name='_csrf')
+            div.postInput
+                label(for="postTitle") Post Title
+                div
+                    input(type="text" name="postTitle" id="postTitle")
+            div.postInput
+                label(for="createNewPostTextArea") Tell us your story...
+                div
+                    textarea(name="createNewPostTextArea" id="createNewPostTextArea")
+            div
+            button(type="submit" id="create-post-button") Create Post
+
