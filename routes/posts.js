@@ -41,11 +41,7 @@ router.get(
       author: readPosts.User.username,
       req,
     });
-  });
-
-
-    res.render('article', {title: readPosts.title, body: readPosts.body, author: readPosts.User.username, req});
-  }
-));
+  })
+)
 
 module.exports = router;
