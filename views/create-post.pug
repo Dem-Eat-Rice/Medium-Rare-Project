@@ -15,10 +15,13 @@ block content
                 input(type="hidden" value=csrfToken name='_csrf')
             div.postInput
                 label(for="postTitle") Post Title
+            div.postTitleBox
                 input(type="text" name="postTitle" id="postTitle")
+            br
             div.postInput
                 label(for="createNewPostTextArea") Tell us your story...
-                textarea(name="createNewPostTextArea" id="createNewPostTextArea")
+            div.postInBox
+                textarea(name="createNewPostTextArea" id="createNewPostTextArea", cols="40", rows="40")
             br
             button(type="submit" id="create-post-button") Create Post
 
