@@ -32,17 +32,15 @@
 .postImg {
     display: flex;
     justify-content: center;
+}
+
+.postImg img{
+    height: 478px;
+    width: 285px
     /* background-image: url('https://www.gimmesomeoven.com/wp-content/uploads/2018/09/How-To-Bake-Steak-In-The-Oven-Recipe-3.jpg'); */
 
 
 }
 
-#postImg {
-    grid-column-start: 2;
-    height: auto; 
-    width: auto; 
-    max-width: 1000px; 
-    max-height: 1000px;
-    
-}
+
 
