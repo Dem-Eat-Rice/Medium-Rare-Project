@@ -38,8 +38,10 @@
     height: 478px;
     width: 285px
     /* background-image: url('https://www.gimmesomeoven.com/wp-content/uploads/2018/09/How-To-Bake-Steak-In-The-Oven-Recipe-3.jpg'); */
+}
 
-
+.posttext {
+    font-weight: bold;
 }
 
 

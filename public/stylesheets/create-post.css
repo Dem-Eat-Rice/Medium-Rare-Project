@@ -10,6 +10,7 @@ h1 {
   align-content: center;
   justify-content: center;
   margin: 0 auto;
+  margin-bottom: 20px;
   border: #555555 solid 0px;
   border-radius: 0.5em;
   width: 600px;
@@ -28,4 +29,8 @@ h1 {
   text-align: center;
   font: inherit;
   width: 140px;
+}
+
+.postInput {
+  font-weight: bold;
 }
