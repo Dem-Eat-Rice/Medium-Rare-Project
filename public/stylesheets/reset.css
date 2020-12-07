@@ -23,12 +23,15 @@ body, header, nav {
 }
 
 .header {
-  background-color: blanchedalmond
+  background-color: blanchedalmond;
 }
+
+
 
 .navsetup {
   background-color: #333;
   overflow: hidden;
+  
 }
 
 .logout-button {

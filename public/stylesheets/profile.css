@@ -1,6 +1,7 @@
 h1 {
   color: #555555;
   font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+  padding-left: 10px;
 }
 
 body {
@@ -12,8 +13,6 @@ body {
   color: #555555;
   background-color: rgb(238, 238, 238);
   display: grid;
-  align-content: center;
-  /* justify-content: center; */
   margin: 0 auto;
   border: #555555 solid 0px;
   border-radius: 0.5em;
@@ -86,13 +85,12 @@ body {
   width: 550px;
 }
 
-#changePassword {
+#changePassword label {
   display: flex;
   align-items: flex-start;
-  align-content: space-between;
-  padding-top: 30px;
+  padding-top: 15px;
 }
 
-button {
-  margin: 5px;
+#profile-button {
+  margin-top: 6px;
 }

@@ -1,6 +1,7 @@
 h1 {
     color: #555555;
     font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin-left: 25px;
 }
 
 body {
@@ -11,8 +12,9 @@ body {
     display: flex;
     justify-content: center;
     margin: 0 auto;
+    margin-bottom: 100px;
     width: 500px;
-    padding: 20px;
+    padding: 20px 20px 20px 20px;
     font: inherit;
     
     box-shadow: 4px 4px 7px #333 ;

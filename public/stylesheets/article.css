@@ -1,11 +1,15 @@
 .artHead {
     padding: 10px;
     text-shadow: lightgray 2px 2px;
+    display: flex;
+    justify-content: center;
 }
 
 .authName {
     margin-left: 10px;
     font-weight: bold;
+    display: flex;
+    justify-content: center;
 }
 
 .tags {
@@ -13,12 +17,30 @@
 }
 
 .postbox {
-  color: black;
-  background-color: rgb(238, 238, 238);
-  margin: 20px;
-  border: #555555 solid 0px;
-  border-radius: 0.5em;
-  width: auto;
-  padding: 20px;
-  box-shadow: 4px 4px 7px #333;
+    
+    color: black;
+    background-color: rgb(238, 238, 238);
+    margin: 20px 20px 20px 20px;
+    border: #555555 solid 0px;
+    border-radius: 0.5em;
+    width: auto;
+    max-height: auto;
+    padding: 20px 20px 20px 20px;
+    box-shadow: 4px 4px 7px #333;
 }
+
+.postImg {
+    display: flex;
+    justify-content: center;
+}
+
+.postImg img{
+    height: 478px;
+    width: 285px
+    /* background-image: url('https://www.gimmesomeoven.com/wp-content/uploads/2018/09/How-To-Bake-Steak-In-The-Oven-Recipe-3.jpg'); */
+
+
+}
+
+
+

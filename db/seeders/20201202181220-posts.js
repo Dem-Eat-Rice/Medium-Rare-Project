@@ -9,7 +9,7 @@ module.exports = {
           authorId: 1,
           title: "Steak Medium Rare",
           body:
-            `If you love your steak juicy and tender, 
+             `If you love your steak juicy and tender, 
             then you probably love medium rare steak. Cooked to 130–135°F (54–57°C), 
             a medium rare steak’s muscle fibers are just starting to contract, 
             but aren’t yet expelling all of their juices, and, for many people, 
